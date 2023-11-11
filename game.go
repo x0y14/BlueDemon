@@ -18,12 +18,12 @@ type Game struct {
 	Player       *Object
 	Objs         map[string]*Object
 	Enemies      map[string]*Object
-	currentStage *Stage
+	currentStage string
 	Stages       map[string]*Stage
 }
 
 func (g *Game) SetStage(id string) {
-	g.currentStage = g.Stages[id]
+	g.currentStage = id
 }
 
 func (g *Game) Update() error {
@@ -72,9 +72,9 @@ func (g *Game) drawObject(screen *ebiten.Image, obj *Object) {
 func (g *Game) drawStage(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	// ベースとなるスキンを貼る
-	screen.DrawImage(g.currentStage.Skin, op)
+	screen.DrawImage(g.Stages[g.currentStage].Skin, op)
 	// 小物を貼る
-	for _, obj := range g.currentStage.Objs {
+	for _, obj := range g.Stages[g.currentStage].Objs {
 		g.drawObject(screen, obj)
 	}
 }
