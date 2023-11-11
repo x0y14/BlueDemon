@@ -26,15 +26,15 @@ func (g *Game) Update() error {
 	} // up
 	if ebiten.IsKeyPressed(ebiten.KeyS) {
 		g.Player.SetPosition(
-			NewPosition(g.Player.Center.X, g.Player.Center.Y+10))
+			NewPosition(g.Player.Center.X, g.Player.Center.Y+5))
 	} // down
 	if ebiten.IsKeyPressed(ebiten.KeyD) {
 		g.Player.SetPosition(
-			NewPosition(g.Player.Center.X+10, g.Player.Center.Y))
+			NewPosition(g.Player.Center.X+5, g.Player.Center.Y))
 	} // right
 	if ebiten.IsKeyPressed(ebiten.KeyA) {
 		g.Player.SetPosition(
-			NewPosition(g.Player.Center.X-10, g.Player.Center.Y))
+			NewPosition(g.Player.Center.X-5, g.Player.Center.Y))
 	} // left
 	return nil
 }
