@@ -24,7 +24,13 @@ func init() {
 		"Player",
 		[]*Polygon{body},
 		nil,
-		skin,
-		NewPosition(-body.Width/2, -body.Height/2),
+		NewState(skin,
+			NewPosition(-body.Width/2, -body.Height/2)),
 	)
+
+	skinWasEaten, _, err := ebitenutil.NewImageFromFile("assets/human-was-eaten.png")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	Human.States["was-eaten"] = NewState(skinWasEaten, NewPosition(-body.Width/2, -body.Height/2))
 }

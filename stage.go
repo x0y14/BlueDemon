@@ -34,7 +34,7 @@ func init() {
 	}
 
 	tileBody := NewRectanglePolygon(NewPosition(0, 0), 80, 80, color.RGBA{R: 0x00, G: 0x00, B: 0x00, A: 0x80})
-	tile := NewObject("tile", []*Polygon{tileBody}, NewPosition(0, 0), tileSkin, NewPosition(-tileBody.Width/2, -tileBody.Height/2))
+	tile := NewObject("tile", []*Polygon{tileBody}, NewPosition(0, 0), NewState(tileSkin, NewPosition(-tileBody.Width/2, -tileBody.Height/2)))
 
 	Stage1 = NewStage("stage1", []*Object{tile}, stageSkin)
 }
