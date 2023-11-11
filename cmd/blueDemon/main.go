@@ -8,7 +8,12 @@ import (
 func main() {
 	ebiten.SetWindowSize(blueDemon.ScreenWidth, blueDemon.ScreenHeight)
 	ebiten.SetWindowTitle("BlueDemon")
-	if err := ebiten.RunGame(&blueDemon.Game{}); err != nil {
+
+	game := &blueDemon.Game{}
+	game.Player = blueDemon.Human
+	game.Player.SetPosition(blueDemon.NewPosition(blueDemon.ScreenWidth/2, blueDemon.ScreenHeight/2))
+
+	if err := ebiten.RunGame(game); err != nil {
 		panic(err)
 	}
 }
