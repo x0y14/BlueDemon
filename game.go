@@ -14,9 +14,15 @@ const (
 )
 
 type Game struct {
-	Player  *Object
-	Objs    []*Object
-	Enemies []*Object
+	Player       *Object
+	Objs         map[string]*Object
+	Enemies      map[string]*Object
+	currentStage *Stage
+	Stages       map[string]*Stage
+}
+
+func (g *Game) SetStage(id string) {
+	g.currentStage = g.Stages[id]
 }
 
 func (g *Game) Update() error {
@@ -42,12 +48,31 @@ func (g *Game) Update() error {
 func (g *Game) drawPlayer(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(
-		float64(g.Player.Center.X-g.Player.Component[0].Width/2),
-		float64(g.Player.Center.Y-g.Player.Component[0].Height/2))
+		float64(g.Player.Center.X+g.Player.SkinVertex.X),
+		float64(g.Player.Center.Y+g.Player.SkinVertex.Y))
 	screen.DrawImage(g.Player.Skin, op)
 }
 
+func (g *Game) drawObject(screen *ebiten.Image, obj *Object) {
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(
+		float64(obj.Center.X+obj.SkinVertex.X),
+		float64(obj.Center.Y+obj.SkinVertex.Y))
+	screen.DrawImage(obj.Skin, op)
+}
+
+func (g *Game) drawStage(screen *ebiten.Image) {
+	op := &ebiten.DrawImageOptions{}
+	// ベースとなるスキンを貼る
+	screen.DrawImage(g.currentStage.Skin, op)
+	// 小物を貼る
+	for _, obj := range g.currentStage.Objs {
+		g.drawObject(screen, obj)
+	}
+}
+
 func (g *Game) Draw(screen *ebiten.Image) {
+	g.drawStage(screen)
 	g.drawPlayer(screen)
 	ebitenutil.DebugPrint(screen, fmt.Sprintf("TPS: %0.2f", ebiten.ActualTPS()))
 }

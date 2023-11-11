@@ -20,11 +20,11 @@ func init() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
-	Human = &Object{
-		Id:        "Player",
-		Component: []*Polygon{body},
-		Center:    nil,
-		Skin:      skin,
-	}
+	Human = NewObject(
+		"Player",
+		[]*Polygon{body},
+		nil,
+		skin,
+		NewPosition(-body.Width/2, -body.Height/2),
+	)
 }

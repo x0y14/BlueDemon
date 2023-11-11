@@ -3,18 +3,20 @@ package blueDemon
 import "github.com/hajimehoshi/ebiten/v2"
 
 type Object struct {
-	Id        string
-	Component []*Polygon
-	Center    *Position
-	Skin      *ebiten.Image
+	Id         string
+	Component  []*Polygon
+	Center     *Position
+	Skin       *ebiten.Image
+	SkinVertex *Position
 }
 
-func NewObject(id string, component []*Polygon, center *Position, skin *ebiten.Image) *Object {
+func NewObject(id string, component []*Polygon, center *Position, skin *ebiten.Image, skinVertex *Position) *Object {
 	return &Object{
-		Id:        id,
-		Component: component,
-		Center:    center,
-		Skin:      skin,
+		Id:         id,
+		Component:  component,
+		Center:     center,
+		Skin:       skin,
+		SkinVertex: skinVertex,
 	}
 }
 
